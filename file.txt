@@ -1,0 +1,15 @@
+POST to your /login or /auth (whatever you called the endpoint)
+- This request will send a username and password fields to your server
+- your server should grab those, look up that user and respond with a JSON object that looks like
+ - {"full_name": "bob", "api_token": "your JWT"}
+
+GET to your /login or /auth
+- instead of sending a username and password in the request, this request will send back up your api_token (in your case, the JWT) inside the path. So if you returned a JWT of 12345 from the POST the GET will look like GET /login/12345
+- take the JWT, decode it, grab the user and return a response that looks just like the POST
+ - {"full_name": "bob", "api_token": "your JWT"}
+
+GET to your /loads
+- The loads request will send your api_token (JWT) inside the authentication header (like Authorization: Token token=your-jwt)
+- Get the JWT from the header, get the user from that JWT and return load data for that user. The load data response should look like...
+ - [{"id": 1, "display_identifier": "Bob store", "sort": 1, "order_number": 1234, ...}]
+ - Look at the required fields for Loads in the API docs
